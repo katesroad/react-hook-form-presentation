@@ -1,8 +1,8 @@
 import { Button, FormField } from '@react-hook-form/shared-components';
 import { useForm, FormProvider, useFieldArray } from 'react-hook-form';
+import AuthedBy from './AuthedBy';
 import EmissionFactor from './EmissionFactor';
 import OccupancyClass from './OccupancyClass';
-import RequireAuth from './RequireAuth';
 
 export default function App() {
   const methods = useForm({
@@ -101,8 +101,8 @@ export default function App() {
             </p>
           </EmissionFactor>
         ))}
-        {/* Sign in */}
-        <FormField label="Add Authed By" inline>
+        {/* Sign name */}
+        <FormField label="sign my name" inline>
           <input
             type="checkbox"
             {...methods.register('isAuthed', {
@@ -110,8 +110,8 @@ export default function App() {
             })}
           />
         </FormField>
-        {isAuthed && <RequireAuth />}
-        <input type="submit" />
+        {isAuthed && <AuthedBy />}
+        <Button type="submit">Submit</Button>
       </form>
     </FormProvider>
   );

@@ -8,15 +8,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 type Props = {
   name: string;
+  required?: boolean;
 };
 
-export function Datepicker({ name }: Props) {
+export function Datepicker({ name, required = false }: Props) {
   const { control } = useFormContext();
 
   return (
     <Controller
       control={control}
       name={name}
+      rules={{ required: required ? 'Please select time' : false }}
       render={({ field }) => (
         <DatePicker
           placeholderText="Select date"

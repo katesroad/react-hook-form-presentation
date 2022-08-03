@@ -26,6 +26,8 @@ function Select({
 
   const value = getValues(name);
 
+  console.info(errors);
+
   return (
     <FormField label={label}>
       <select
