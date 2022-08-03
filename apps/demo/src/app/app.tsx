@@ -43,8 +43,6 @@ const Index = () => {
         <Link to="quick-start">start</Link>
         <Link to="multiple-steps">Multiple Steps Form</Link>
         <Link to="array">Array Fields</Link>
-        <Link to="default-values">Default Values</Link>
-        <Link to="rerender">Mock Fetch Data</Link>
         <Link to="conditional">Conditional</Link>
         <Link to="dynamic">Dynamic</Link>
         <Link to="yup-validation">Yup Validation</Link>
