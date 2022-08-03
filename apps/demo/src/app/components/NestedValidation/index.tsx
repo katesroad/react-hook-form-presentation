@@ -2,16 +2,27 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ErrorMessage } from '@hookform/error-message';
-import { FormField } from '@react-hook-form/shared-components';
+import {
+  Button,
+  FormField,
+  FormFieldGroup,
+} from '@react-hook-form/shared-components';
 
 type UserData = {
   firstName: string;
   lastName: string;
 };
 
+type FormData = {
+  user: UserData;
+  organization: string;
+  email: string;
+  title?: string;
+};
+
 const useYupValidationResolver = (validationSchema: any) =>
   useCallback(
-    async (data: UserData) => {
+    async (data: FormData) => {
       try {
         const values = await validationSchema.validate(data, {
           abortEarly: false,
@@ -41,8 +52,17 @@ const useYupValidationResolver = (validationSchema: any) =>
   );
 
 const validationSchema = yup.object({
-  firstName: yup.string().required('Required'),
-  lastName: yup.string().required('Required'),
+  user: yup
+    .object({
+      firstName: yup.string().required('First name is required'),
+      lastName: yup.string().required('Last name is required'),
+    })
+    .required('User is required'),
+  organization: yup.string().required('Organization is required'),
+  email: yup
+    .string()
+    .required('Email is required')
+    .email('Please provide a valid email'),
 });
 
 export default function YupValidation() {
@@ -58,23 +78,49 @@ export default function YupValidation() {
 
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <FormField label="Last Name">
-        <input {...register('lastName')} />
+      <FormFieldGroup inline>
+        <FormField label="Last Name">
+          <input {...register('user.lastName')} />
+          <ErrorMessage
+            errors={errors}
+            name="user.lastName"
+            render={({ message }) => <p className="error">{message}</p>}
+          />
+        </FormField>
+        <FormField label="First Name">
+          <input {...register('user.firstName')} />
+          <ErrorMessage
+            errors={errors}
+            name="user.firstName"
+            render={({ message }) => <p className="error">{message}</p>}
+          />
+        </FormField>
+      </FormFieldGroup>
+      <FormField label="Organization">
+        <input {...register('organization')} />
         <ErrorMessage
           errors={errors}
-          name="lastName"
+          name="organization"
           render={({ message }) => <p className="error">{message}</p>}
         />
       </FormField>
-      <FormField label="First Name">
-        <input {...register('firstName')} />
+      <FormField label="Email">
+        <input {...register('email')} />
         <ErrorMessage
           errors={errors}
-          name="firstName"
+          name="email"
           render={({ message }) => <p className="error">{message}</p>}
         />
       </FormField>
-      <input type="submit" />
+      <FormField label="Title">
+        <input {...register('title')} />
+        <ErrorMessage
+          errors={errors}
+          name="title"
+          render={({ message }) => <p className="error">{message}</p>}
+        />
+      </FormField>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }
