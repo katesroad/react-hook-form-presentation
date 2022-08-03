@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { Button, FormField } from '@react-hook-form/shared-components';
 
 export default function QuickStart() {
@@ -14,8 +15,6 @@ export default function QuickStart() {
 
   const onSubmit = (data: Record<string, string>) => console.log(data);
 
-  console.info(register('kate'));
-
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -24,13 +23,39 @@ export default function QuickStart() {
         <input {...register('example')} />
 
         {/* include validation with required or other standard HTML validation rules */}
+        <ErrorMessage
+          name="example"
+          errors={errors}
+          render={({ message }) => <p className="error">{message}</p>}
+        />
       </FormField>
       <FormField label="Required Field">
-        <input {...register('exampleRequired', { required: true })} />
+        <input
+          {...register('exampleRequired', { required: 'Required Field' })}
+        />
         {/* errors will return when field validation fails  */}
-        <p className="error">
-          {errors['exampleRequired'] && <span>This field is required</span>}
-        </p>
+        <ErrorMessage
+          name="exampleRequired"
+          errors={errors}
+          render={({ message }) => <p className="error">{message}</p>}
+        />
+      </FormField>
+      <FormField label="Email Field">
+        <input
+          {...register('email', {
+            required: 'Required Field',
+            pattern: {
+              value: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+              message: 'Please fill a valid email',
+            },
+          })}
+        />
+        {/* errors will return when field validation fails  */}
+        <ErrorMessage
+          name="email"
+          errors={errors}
+          render={({ message }) => <p className="error">{message}</p>}
+        />
       </FormField>
       <FormField>
         <Button type="submit">submit</Button>
