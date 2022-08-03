@@ -73,6 +73,7 @@ export default function YupValidation() {
     register,
     formState: { errors },
   } = useForm({
+    mode: 'onChange',
     resolver,
   });
 
