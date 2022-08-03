@@ -8,14 +8,14 @@ export type Props = {
   name: string;
   disabled?: boolean;
   label: string;
-  validation?: { required: boolean | string };
+  required?:boolean;
 };
 
 function Select({
   name,
   options,
   disabled,
-  validation = { required: false },
+  required = false,
   label,
 }: Props) {
   const {
@@ -31,7 +31,7 @@ function Select({
       <select
         {...register(name, {
           disabled,
-          ...validation,
+          required: required ? `Field is required`: false,
         })}
         defaultValue={value}
       >
