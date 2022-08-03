@@ -42,7 +42,7 @@ export default function Dynamic() {
           label="class type"
           name="classType"
           disabled={isLoadingClassTypes}
-          validation={{ required: 'class type is required' }}
+          required
           options={[
             {
               label: isLoadingClassTypes
@@ -57,7 +57,7 @@ export default function Dynamic() {
           label="limit"
           name="limit"
           disabled={!classType}
-          validation={{ required: 'limit is required' }}
+          required
           options={[
             {
               label:
