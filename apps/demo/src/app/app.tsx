@@ -8,9 +8,7 @@ const ArrayField = React.lazy(() => import(`./components/ArrayField`));
 const MultipleStepsForm = React.lazy(
   () => import(`./components/MultipleSteps`)
 );
-const DefaultValues = React.lazy(() => import(`./components/DefaultValues`));
 const QuickStart = React.lazy(() => import(`./components/QuickStart`));
-const Rerender = React.lazy(() => import(`./components/Rerender`));
 const Dependencies = React.lazy(() => import(`./components/Dependencies`));
 const Dynamic = React.lazy(() => import(`./components/Dynamic`));
 const YupValidation = React.lazy(() => import('./components/NestedValidation'));
@@ -30,6 +28,7 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   margin-right: 2rem;
+  min-width: 160px;
 
   a {
     display: block;
@@ -67,9 +66,7 @@ export function App() {
         <Route path="/" element={<Index />}>
           <Route path="/multiple-steps" element={<MultipleStepsForm />} />
           <Route path="/array" element={<ArrayField />} />
-          <Route path="/default-values" element={<DefaultValues />} />
           <Route path="/quick-start" element={<QuickStart />} />
-          <Route path="/rerender" element={<Rerender />} />
           <Route path="/conditional" element={<Dependencies />} />
           <Route path="/dynamic" element={<Dynamic />} />
           <Route path="/yup-validation" element={<YupValidation />} />
