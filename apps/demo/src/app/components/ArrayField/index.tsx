@@ -4,6 +4,7 @@ import {
   FormField,
   FormFieldGroup,
 } from '@react-hook-form/shared-components';
+import { ErrorMessage } from '@hookform/error-message';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import Total, { FormValues } from './Total';
@@ -18,7 +19,7 @@ export default function Demo() {
     defaultValues: {
       cart: [{ name: 'Apple', quantity: 1, price: 23 }],
     },
-    mode: 'onBlur',
+    mode: 'all',
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -38,9 +39,14 @@ export default function Demo() {
                 <input
                   placeholder="name"
                   {...register(`cart.${index}.name` as const, {
-                    required: true,
+                    required: 'Product name is required',
                   })}
                   className={errors?.cart?.[index]?.name ? 'error' : ''}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name={`cart.${index}.name` as const}
+                  render={({ message }) => <p className="error">{message}</p>}
                 />
               </FormField>
               <FormField label="Number" inline>
@@ -49,9 +55,22 @@ export default function Demo() {
                   type="number"
                   {...register(`cart.${index}.quantity` as const, {
                     valueAsNumber: true,
-                    required: true,
+                    required: 'Product amount is required',
+                    max: {
+                      value: 10,
+                      message: 'You can record 10 item a time at most',
+                    },
+                    min: {
+                      value: 1,
+                      message: 'At least one item is required',
+                    },
                   })}
                   className={errors?.cart?.[index]?.quantity ? 'error' : ''}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name={`cart.${index}.quantity` as const}
+                  render={({ message }) => <p className="error">{message}</p>}
                 />
               </FormField>
               <FormField label="Price" inline>
@@ -60,9 +79,22 @@ export default function Demo() {
                   type="number"
                   {...register(`cart.${index}.price` as const, {
                     valueAsNumber: true,
-                    required: true,
+                    required: 'product price is required',
+                    min: {
+                      message: "Price can't less than 0.1 dollar",
+                      value: 0.1,
+                    },
+                    max: {
+                      message: "Price can't large than 100 dollar",
+                      value: 100,
+                    },
                   })}
                   className={errors?.cart?.[index]?.price ? 'error' : ''}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name={`cart.${index}.price` as const}
+                  render={({ message }) => <p className="error">{message}</p>}
                 />
               </FormField>
               <ButtonGroup>
