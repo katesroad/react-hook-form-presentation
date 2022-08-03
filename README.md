@@ -1,42 +1,23 @@
 # README
 
-## Map
+Applications are built form nx generator.
 
-### Map
+## How to start apps
 
-Problems => Demo => Why => Concepts => Proposal & POC
+- Install dependencies
 
-### Breakdown
+```bash
+yarn
+```
 
-1. Problems => Demo =>
+- Start frontend demo:
 
-   - Error Message
-   - Form Field Example
-     - Nested Object
-     - Array Field
-     - Conditional Rendering
-     - Dynamical Field
-     - Custmized components
-   - StepForm
+```bash
+nx serve demo
+```
 
-2. Why
+- start backend app:
 
-   - why Now
-     - transition
-   - why this lib
-     - quality
-     - compatibility (v7.2.1)
-     - needs
-     - problems
-
-3. => Concepts
-
-   - useForm: generate form related controls & elements
-     - watch
-     - useArrayField
-   - Use with customized component
-     - FormProvider
-     - Controller
-   - ErrorMessage & Yup
-
-4. Proposal and POC with current customized components
+```bash
+nx serve server
+```
