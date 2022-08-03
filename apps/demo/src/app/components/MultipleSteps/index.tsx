@@ -40,7 +40,7 @@ export default function MultipleStepsForm() {
           updateFormValues,
         }}
       >
-        <h3>Step {currentStep} of 3</h3>
+        <h3>{currentStep > 3 ? "Final Result": `Current At Step ${currentStep} of 3`}</h3>
         {currentStep > 1 && <Button onClick={handleButtonClick}>Back</Button>}
 
         {currentStep === 1 && <BillingInfo />}
