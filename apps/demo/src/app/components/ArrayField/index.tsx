@@ -12,12 +12,13 @@ import Total, { FormValues } from './Total';
 export default function Demo() {
   const {
     register,
+    reset,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      cart: [{ name: 'Apple', quantity: 1, price: 23 }],
+      cart: [{ name: '', quantity: 1, price: 0 }],
     },
     mode: 'all',
   });
@@ -29,8 +30,18 @@ export default function Demo() {
 
   const onSubmit = (data: FormValues) => console.log(data);
 
+  const handleLoadButtoClick = () => {
+    reset({
+      cart: [
+        { name: 'Apple', quantity: 1, price: 2 },
+        { name: 'Banana', quantity: 1, price: 2 },
+      ],
+    });
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <button onClick={handleLoadButtoClick}>Load Backend Data</button>
       <ul>
         {fields.map((field, index) => {
           return (
