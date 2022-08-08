@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@react-hook-form/compiler": ["libs/compiler/src/index.ts"],
       "@react-hook-form/shared-components": [
         "libs/shared-components/src/index.ts"
       ]
