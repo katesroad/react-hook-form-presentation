@@ -4,29 +4,9 @@ import {
   FormField,
   FormFieldGroup,
 } from '@react-hook-form/shared-components';
-import { useForm, useFieldArray, useWatch, Control } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 
-type FormValues = {
-  cart: {
-    name: string;
-    price: number;
-    quantity: number;
-  }[];
-};
-
-const Total = ({ control }: { control: Control<FormValues> }) => {
-  const formValues = useWatch({
-    name: 'cart',
-    control,
-  });
-
-  const total = formValues.reduce(
-    (acc, current) => acc + (current.price ?? 0) * (current.quantity || 0),
-    0
-  );
-
-  return <p>Total Amount: {total}</p>;
-};
+import Total, { FormValues } from './Total';
 
 export default function Demo() {
   const {
@@ -36,7 +16,7 @@ export default function Demo() {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      cart: [{ name: 'test', quantity: 1, price: 23 }],
+      cart: [{ name: 'Apple', quantity: 1, price: 23 }],
     },
     mode: 'onBlur',
   });
@@ -85,7 +65,7 @@ export default function Demo() {
                   className={errors?.cart?.[index]?.price ? 'error' : ''}
                 />
               </FormField>
-              <ButtonGroup className="button-group">
+              <ButtonGroup>
                 {fields.length !== 1 && (
                   <Button onClick={() => remove(index)}>-</Button>
                 )}
